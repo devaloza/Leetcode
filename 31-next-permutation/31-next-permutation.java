@@ -1,8 +1,7 @@
 class Solution {
     public void nextPermutation(int[] nums) {
-        if (nums.length <=1) {
+        if (nums.length <=1)
             return;
-        }
         int i = nums.length - 2;
         while (i >= 0 && nums[i+1] <= nums[i]) {
             i--;
