@@ -2,11 +2,10 @@ class Solution {
     public void nextPermutation(int[] nums) {
         if (nums.length <=1)
             return;
-        int i = nums.length - 2;
-        while (i >= 0 && nums[i+1] <= nums[i]) {
-            i--;
+        int changeIndex = nums.length - 2;
+        while (changeIndex >= 0 && nums[changeIndex+1] <= nums[changeIndex]) {
+            changeIndex--;
         }
-        int changeIndex = i;
         if (changeIndex >=0) {
             int j = nums.length - 1;
             while (nums[changeIndex] >= nums[j]) {
