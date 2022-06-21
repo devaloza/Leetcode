@@ -1,7 +1,5 @@
 class Solution {
     public void nextPermutation(int[] nums) {
-        if (nums.length <=1)
-            return;
         int changeIndex = nums.length - 2;
         while (changeIndex >= 0 && nums[changeIndex+1] <= nums[changeIndex]) {
             changeIndex--;
