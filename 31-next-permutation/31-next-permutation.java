@@ -8,7 +8,6 @@ class Solution {
         if (changeIndex >=0) {
             int j = nums.length - 1;
             while (nums[changeIndex] >= nums[j]) {
-                // swap with targetIndex element
                 j--;
             }
             swap(nums, changeIndex, j);
