@@ -1,34 +1,29 @@
 class Solution {
-
     public int coinChange(int[] coins, int amount) {
-        int n = coins.length;
+        int cLen = coins.length;
+        int[][] opt = new int[amount+1][cLen+1];
 
-        // Initialize a DP table with dimensions (n + 1) x (amount + 1)
-        int[][] dp = new int[n + 1][amount + 1];
-
-        // Base case: If the amount is 0, the minimum number of coins needed is 0 for any denomination.
-        for (int i = 0; i <= n; i++) {
-            dp[i][0] = 0;
-        }
-
-        // Initialize the DP table for the case where we don't have any coins (i.e., i = 0).
-        for (int x = 1; x <= amount; x++) {
-            dp[0][x] = Integer.MAX_VALUE; // Set to a large value to represent infinity
-        }
-
-        // Fill in the DP table using the recurrence relation
-        for (int i = 1; i <= n; i++) {
-            for (int x = 1; x <= amount; x++) {
-                dp[i][x] = dp[i - 1][x]; // If we don't use the i-th coin
-
-                // If we can use the i-th coin and it reduces the amount to a non-negative value
-                if (x - coins[i - 1] >= 0 && dp[i][x - coins[i - 1]] != Integer.MAX_VALUE) {
-                    dp[i][x] = Math.min(dp[i][x], 1 + dp[i][x - coins[i - 1]]);
+        for (int i=0; i<amount+1; i++) {
+            opt[i][0] = Integer.MAX_VALUE;
+            for (int j=1; j<cLen+1; j++) {
+                if (i==0) {
+                    opt[i][j] = 0;
+                    continue;
                 }
+
+                if (i < coins[j-1] || opt[i - coins[j-1]][j] == Integer.MAX_VALUE) {
+                    opt[i][j] = opt[i][j-1];
+                    continue;
+                }
+
+                opt[i][j] = Math.min(1 + opt[i - coins[j-1]][j], opt[i][j-1]);
             }
         }
 
-        // The final result is stored in dp[n][amount]
-        return (dp[n][amount] == Integer.MAX_VALUE) ? -1 : dp[n][amount];
+        if (opt[amount][cLen] == Integer.MAX_VALUE) {
+            return -1;
+        }
+
+        return opt[amount][cLen];
     }
 }
