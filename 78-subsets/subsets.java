@@ -1,22 +1,22 @@
 class Solution {
-    private List<List<Integer>> output = new ArrayList();
-    private int n;
-
-    public void backtrack(int first, ArrayList<Integer> curr, int[] nums) {
-        // Add the current subset to the output
-        output.add(new ArrayList(curr));
-        // Generate subsets starting from the current index
-        for (int i = first; i < n; i++) {
-            curr.add(nums[i]);
-            backtrack(i + 1, curr, nums);
-            curr.remove(curr.size() - 1);
-        }
-    }
-
+    List<List<Integer>> result = new ArrayList<>();
     public List<List<Integer>> subsets(int[] nums) {
-        n = nums.length;
-        ArrayList<Integer> currCombo = new ArrayList<Integer>();
-        backtrack(0, currCombo, nums); // One call generates all subsets
-        return output;
+        ArrayList<Integer> subset = new ArrayList<>();
+        if (nums.length ==1) {
+            subset.add(nums[0]);
+            result.add(new ArrayList<>());
+            result.add(subset);
+            return result;
+        }
+        backtrack(0, nums, subset);
+        return result;
+    }
+    public void backtrack(int index, int[] arr, ArrayList<Integer> sub){
+        result.add(new ArrayList(sub));
+        for (int i = index; i < arr.length; i++) {
+            sub.add(arr[i]);
+            backtrack(i+1, arr, sub);
+            sub.remove(sub.size()-1);
+        }
     }
 }
