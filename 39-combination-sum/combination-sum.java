@@ -5,21 +5,21 @@ class Solution {
             return new ArrayList<>(new ArrayList<>(candidates[0]));
         }
         Arrays.sort(candidates);
-        backtrack(0, candidates, target, new ArrayList<>(), 0);
+        backtrack(candidates, target, new ArrayList<>(), 0);
         return resultList;
     }
-    private void backtrack(int sum, int[] arr, int target, List<Integer> subList, int start) {
-        if (target == sum) {
+    private void backtrack(int[] arr, int target, List<Integer> subList, int start) {
+        if (target == 0) {
             //System.out.println(subList);
             resultList.add(new ArrayList<>(subList));
             return;
         }
-        if (sum > target) {
+        if (target < 0) {
             return;
         }
         for (int i = start; i < arr.length; i++) {
             subList.add(arr[i]);
-            backtrack(sum + arr[i], arr, target, subList, i);
+            backtrack(arr, target - arr[i], subList, i);
             subList.remove(subList.size()-1);
         }
     }
