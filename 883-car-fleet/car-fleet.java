@@ -13,7 +13,6 @@ class Solution {
                 fleet +=1;
                 recent_time = position_time[i][1];
             }
-            System.out.println(position_time[i][0]+"-->"+position_time[i][1]);
         }
     return fleet;
     }
