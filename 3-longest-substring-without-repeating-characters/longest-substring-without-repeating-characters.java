@@ -6,16 +6,17 @@ class Solution {
         int result = 0;
         int start = 0;
         int end = 0;
-        Set<Character> set = new HashSet<>();
+        Map<Character, Integer> char_frequency = new HashMap<>();
         while (start < s.length() && end < s.length()) {
-           if (!set.contains(s.charAt(end))) {
-            set.add(s.charAt(end));
-            result = Math.max(result, set.size());
-            end++;
-           } else {
-                set.remove(s.charAt(start));
-                start++;
-            }
+            char c = s.charAt(end);
+           char_frequency.put(s.charAt(end), char_frequency.getOrDefault(s.charAt(end), 0) +1);
+           while (char_frequency.get(c) > 1) {
+            char st = s.charAt(start);
+            char_frequency.put(st, char_frequency.get(st) -1);
+            start++;
+           }
+           result = Math.max(result, end - start +1);
+           end++;
         }
         return result;
     }
